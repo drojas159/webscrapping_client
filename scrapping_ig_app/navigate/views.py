@@ -12,14 +12,18 @@ def users(request):
 
 def open_application(request):
     #user=get_object_or_404(ScraperUser, username=request.POST['login_name'])
-    try:
-        
+    try:        
         su=ScraperUser(username=request.POST['login_name'],password=request.POST['login_password'])
+        action_type = request.POST['action_type']
         su.save_user()
-        oa.main(su.username)
-        
+        oa.main(su.username, action_type)        
     except (Exception):
-        raise (Exception)
-        
+        raise (Exception)       
 
     return HttpResponse("Insertado")
+
+def publications(request):
+    return render(request, 'navigate/publication.html',{})
+
+def comments(request):
+    return render(request, 'navigate/comments.html',{})

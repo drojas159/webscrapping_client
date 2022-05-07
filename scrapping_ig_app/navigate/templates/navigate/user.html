@@ -16,10 +16,25 @@
     <main>
         <form action="{% url 'open_application' %}" method="post">
             {% csrf_token %}
-            <input type="text" name="login_name" id="login_name" value="{{ current_name }}">
-            <input type="password" name="login_password" id="login_password" value="{{ current_name }}">
-            <input type="submit" value="Extraer">
+            <label for="login_name" >
+                <input type="text" name="login_name" id="login_name" value="mentaldata" class="scraperuser-detail" style="display: none">
+            </label>
+            <label for="login_password" >
+                <input type="password" name="login_password" id="login_password" value="{{ current_name }}" class="scraperuser-detail" style="display: none">
+            </label>
+            <label for="action_type" > 
+                <input type="text" name="action_type" id="action_type" value="navigate_users" class="scraperuser-detail"  style="display: none">
+            </label>
+            <input type="submit" value="Extraer" class="scraperuser-button">
         </form>
+
+        <table>
+            <tr>
+                <th>
+                    Por definir
+                </th>
+            </tr>
+        </table>
     </main>
 </body>
 </html>

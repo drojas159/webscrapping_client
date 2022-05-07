@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navegar comentarios</title>
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'navigate/style.css'%} ">
+</head>
+<body>
+    <header>
+        <h1>Web Scrapping Instagram</h1>
+    </header>
+    <main>
+        <form action="{% url 'open_application' %}" method="post">
+            {% csrf_token %}
+            <label for="login_name" >
+                <input type="text" name="login_name" id="login_name" value="mentaldata" class="scraperuser-detail"  style="display: none">
+            </label>
+            <label for="password" > 
+                <input type="password" name="login_password" id="login_password" value="" class="scraperuser-detail"  style="display: none">
+            </label>
+            <label for="action_type" > 
+                <input type="text" name="action_type" id="action_type" value="navigate_comments" class="scraperuser-detail"  style="display: none">
+            </label>
+            <input type="submit" value="Abrir Instagram" class="scraperuser-button">
+        </form>
+    </main>
+</body>
+</html>
