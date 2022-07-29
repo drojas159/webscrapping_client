@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizar</title>
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'analyze/styles.css'%} ">
+</head>
+<body>
+    <header>
+        <div class="page-title-div">
+            <h1 class="page-title">Analizar Usuarios</h1>
+        </div>
+    </header>
+    <main>
+        <form action="{% url 'predict_users' %}" method="post">
+            {% csrf_token %}
+            <ul class="options">
+                <li class="option-block">
+                    <div class="manu-options">
+                        <input type="submit" value="Analizar usuarios" class="option-button">
+                    </div>
+                </li>
+                <li class="option-block">
+                    <div class="manu-options">
+                        <input type="button" onclick="window.location.href='/index';" value="Regresar" class="option-button back"/>                         
+                    </div>
+                </li>
+            </ul>
+        </form>
+        {% if dataset.any %}
+        <div class="page-title-div">
+            <h2 class="page-title">Predecir usuarios</h2>
+        </div>
+            <table class= "center-report" >
+                <tr >
+                    <th class= "border-report">ID Usuario</th>
+                    <th class= "border-report">Usuario</th>
+                    <th class= "border-report">Detalle Usuario</th>
+                </tr>
+
+                {% for i in dataset  %}
+                    <tr class= "border-report">
+                    {% for j in i %}                       
+                        <td class= "border-report-td">{{ j }}</td>   
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </main>
+</body>
+</html>

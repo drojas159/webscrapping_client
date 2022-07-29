@@ -10,21 +10,37 @@
 </head>
 <body>
     <header>
-        <h1>Web Scrapping Instagram</h1>
+        <div class="page-title-div">
+            <h1 class="page-title">Sistema para el análisis de texto a partir del procesamiento de lenguaje natural para identificar sintomatología depresiva en redes sociales</h1>
+        </div>
     </header>
     <main>
-        <ul>
-            <li>
-                <a href="/user">Navegar usuarios</a>
+        <ul class="options">
+            <li class="option-block">
+                <div class="manu-options">
+                    <input type="button" onclick="window.location.href='/user';" value="Navegar usuarios" class="option-button"/>
+                </div>
             </li>
-            <li>
-                <a href="/publication">Navegar publicaciones</a>
+            <li class="option-block">
+                <div class="manu-options">
+                    <input type="button" onclick="window.location.href='/publication';" value="Navegar publicaciones" class="option-button"/>
+                </div>
             </li>
-            <li>
-                <a href="/comment">Navegar comentarios</a>
+            <li class="option-block">
+                <div class="manu-options">
+                    <input type="button" onclick="window.location.href='/comment';" value="Navegar comentarios" class="option-button"/>
+                </div>
             </li>
-            <li>
-                <a href="/analyze">Analyze</a>
+            <li class="option-block">
+                <div class="manu-options">
+                    <input type="button" onclick="window.location.href='/analyze';" value="Analizar" class="option-button"/>
+                </div>
+                
+            </li>
+            <li class="option-block">
+                <div class="manu-options">
+                    <input type="button" onclick="window.location.href='/predict_users';" value="Analizar usuarios" class="option-button"/>                         
+                </div>
             </li>
         </ul>
     </main>

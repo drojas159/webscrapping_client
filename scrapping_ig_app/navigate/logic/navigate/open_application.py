@@ -18,13 +18,13 @@ def main(username, action_type):
     try:
         login_url = "accounts/login/"
         option = webdriver.ChromeOptions()
-        #option.add_argument("--incognito")
+        option.add_argument("--incognito")
         driver = webdriver.Chrome("../chromedriver/chromedriver.exe", chrome_options=option)
         url=base_url+ login_url
         driver.get(url)
         time.sleep(2)
         username_input = driver.find_element(By.NAME,"username")
-        username_input.send_keys(username)
+        username_input.send_keys("mentaldata")
         password_input = driver.find_element(By.NAME,"password")
         password_input.send_keys("Maria1112"+ Keys.ENTER)
         #wait=WebDriverWait(driver,120).until(EC.url_changes(url))
@@ -56,7 +56,7 @@ def navigate_followers(driver,original_user):
     try:
         url = driver.current_url
         driver.get(url+original_user+"/" )
-        
+        time.sleep(2)
         element=driver.find_element_by_xpath("//a[@href='/"+original_user+"/following/']")
         element.click()
         time.sleep(2)
@@ -190,17 +190,19 @@ def process_comments(general_comments,publication):
     for gc in (general_comments):
         source = gc.get_attribute('innerHTML') 
         soup = BeautifulSoup(source, "html.parser")
-        """ print("---------------------INICIO soup--------------")
-        print(soup)
-        print("---------------------FINAL soup--------------") """
-        owner=soup.find("a")        
+        
+        owner=soup.find("a")
         user = User(username=owner.text,profile_url=base_url+owner.text)
         user.save_user() 
         user_from_db = User.objects.get(username=user.username)
                
         text = soup.find("span",{"class":"_aacl _aaco _aacu _aacx _aad7 _aade"})
         
-        comment = Comment(text=text.text,user=user_from_db,comment_url=user_from_db.username+"/"+str(publication.id)+str(i),publication=publication)
+        comment_dt = soup.find("time")
+        format_data = "%Y-%m-%dT%H:%M:%S.%fZ"
+        comment_dt  = datetime.strptime(comment_dt['datetime'], format_data)
+
+        comment = Comment(text=text.text,user=user_from_db,comment_url=user_from_db.username+"/"+str(publication.id)+str(i),publication=publication, comment_date=comment_dt)
         comment.save_comment()
         i+=1
         

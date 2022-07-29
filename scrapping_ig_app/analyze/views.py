@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .logic.analyze import preprocessing as pp
+from .logic.analyze import analyze 
 
 # Create your views here.
 def analyze(request):
@@ -9,8 +10,19 @@ def analyze(request):
 
 def split_words(request):
     try:        
-        pp.main()
+        dataset=pp.main()        
+        return render(request, 'analyze/analyze.html',{
+            "dataset" : dataset
+        })    
     except (Exception) as err:
         print(f"Unexpected {err=}, {type(err)=}")       
 
-    return render(request, 'analyze/analyze.html',{})
+def predict_users(request):
+    return render(request, 'analyze/predict_users.html',{})    
+    """ try:        
+        #analyze.predict()        
+        
+    except (Exception) as err:
+        print(f"Unexpected {err=}, {type(err)=}")  """
+
+    

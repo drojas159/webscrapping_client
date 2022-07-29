@@ -67,6 +67,7 @@ class Comment(models.Model):
     comment_url = models.CharField(max_length=300,blank=True)
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
     is_reviewed = models.BooleanField (default=False)
+    comment_date = models.DateField(null=True)
 
     def save_comment(self):
         if (Comment.objects.filter(comment_url=self.comment_url).count()==0):

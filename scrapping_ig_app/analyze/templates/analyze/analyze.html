@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navegar usuarios</title>
+    <title>Analizar</title>
     <title>Home</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'analyze/styles.css'%} ">
 </head>
 <body>
     <header>
-        <h1>Análisis de texto</h1>
+        <div class="page-title-div">
+            <h1 class="page-title">Analizar</h1>
+        </div>
     </header>
     <main>
         <form action="{% url 'split_words' %}" method="post">
             {% csrf_token %}
             <label for="login_name" >
-                <input type="text" name="login_name" id="login_name" value="mentaldata" class="scraperuser-detail" style="display: none">
+                <input type="text" name="login_name" id="login_name" value="daniroja6" class="scraperuser-detail" style="display: none">
             </label>
             <label for="login_password" >
                 <input type="password" name="login_password" id="login_password" value="{{ current_name }}" class="scraperuser-detail" style="display: none">
@@ -25,9 +27,51 @@
             <label for="action_type" > 
                 <input type="text" name="action_type" id="action_type" value="navigate_users" class="scraperuser-detail"  style="display: none">
             </label>
-            <input type="submit" value="Analizar" class="scraperuser-button">
+            <ul class="options">
+                <li class="option-block">
+                    <div class="manu-options">
+                        <input type="submit" value="Analizar" class="option-button">
+                    </div>
+                </li>
+                <li class="option-block">
+                    <div class="manu-options">
+                        <input type="button" onclick="window.location.href='/index';" value="Regresar" class="option-button back"/>                         
+                    </div>
+                </li>
+                {% if dataset.any %}
+                    <li class="option-block">
+                        <div class="manu-options">
+                            <input type="button" onclick="window.location.href='/predict_users';" value="Analizar usuarios" class="option-button"/>                         
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
         </form>
+        {% if dataset.any %}
+        <div class="page-title-div">
+            <h2 class="page-title">Dataset</h2>
+        </div>
+            <table class= "center-report" >
+                <tr >
+                    <th class= "border-report">ID Palabra</th>
+                    <th class= "border-report">Palabra</th>
+                    <th class= "border-report">Síntoma</th>
+                    <th class= "border-report">Comentario</th>
+                    <th class= "border-report">ID Comentario</th>
+                    <th class= "border-report">Usuario</th>
+                    <th class= "border-report">ID Usuario </th>
+                </tr>
 
+                {% for i in dataset  %}
+                    <tr class= "border-report">
+                    {% for j in i %}                       
+                        
+                        <td class= "border-report-td">{{ j }}</td>   
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
     </main>
 </body>
 </html>
