@@ -35,7 +35,7 @@ def login(driver, username, action_type):
     try :        
         url=driver.current_url
         if ("https://www.instagram.com/accounts/onetap" in url):
-            element=driver.find_element_by_xpath("//button[contains(@class, 'sqdOP yWX7d    y3zKF     ')]")
+            element=driver.find_element(By.XPATH,"//button[contains(@class, 'sqdOP yWX7d    y3zKF     ')]")
             element.click()
             time.sleep(1)
             login(driver,username, action_type)
@@ -57,11 +57,11 @@ def navigate_followers(driver,original_user):
         url = driver.current_url
         driver.get(url+original_user+"/" )
         time.sleep(2)
-        element=driver.find_element_by_xpath("//a[@href='/"+original_user+"/following/']")
+        element=driver.find_element(By.XPATH,"//a[@href='/"+original_user+"/following/']")
         element.click()
         time.sleep(2)
         scroll_modal_users(driver)
-        users = driver.find_elements_by_xpath("//a[contains(@class, 'notranslate _0imsa')]")
+        users = driver.find_elements(By.XPATH,"//a[contains(@class, 'notranslate _0imsa')]")
         save_users(users,original_user)
         driver.close()
     except TimeoutException as ex:
@@ -120,7 +120,7 @@ def scroll_publications(driver,u):
 
         # Calculate new scroll height and compare with last scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
-        posts = driver.find_elements_by_xpath("//div[contains(@class, '_aabd _aa8k _aanf')]")
+        posts = driver.find_elements(By.XPATH,"//div[contains(@class, '_aabd _aa8k _aanf')]")
         save_posts(posts,u)
         u.is_reviewed=True
         u.save()
@@ -162,7 +162,7 @@ def navigate_publications(driver):
         driver.close()
 def save_posts(posts,instagram_user):
     for i in posts:
-        tag=i.find_element_by_tag_name("a").get_attribute("href")
+        tag=i.find_element(By.TAG_NAME,"a").get_attribute("href")
         p = Publication(publication_url=tag, user=instagram_user)
         p.save_publication()
 
@@ -214,7 +214,7 @@ def scroll_comments(driver,p):
     count=0
     while True :
         try:
-            general_comments = driver.find_elements_by_xpath("//div[contains(@class, '_a9zr')]")       
+            general_comments = driver.find_elements(By.XPATH,"//div[contains(@class, '_a9zr')]")       
             p.is_reviewed=True
             p.save()
             time.sleep(1)
@@ -239,7 +239,7 @@ def scroll_comments(driver,p):
             
             if(count>2):
                 try:
-                    more_comments_button=driver.find_element_by_xpath("//div[contains(@class, '             qF0y9          Igw0E     IwRSH        YBx95     acqo5   _4EzTm                                                                                                            NUiEW  ')]/button")
+                    more_comments_button=driver.find_element(By.XPATH,"//div[contains(@class, '             qF0y9          Igw0E     IwRSH        YBx95     acqo5   _4EzTm                                                                                                            NUiEW  ')]/button")
                     more_comments_button.click()
                     time.sleep(1)
                 except NoSuchElementException:
@@ -336,4 +336,3 @@ def get_publication_details(driver, post):
             
     except Exception as err:
         print(err)
-

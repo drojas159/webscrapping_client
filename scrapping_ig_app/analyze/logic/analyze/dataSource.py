@@ -6,9 +6,9 @@ def connection():
         
         hostname = 'localhost'
         username = 'postgres'
-        password = 'root'
+        password = 'Chelsea2021!'
         database = 'mental_data_ig'
-        port = 5433
+        port = 5432
 
         connection = psycopg2.connect(user=username,
                                     password=password,
