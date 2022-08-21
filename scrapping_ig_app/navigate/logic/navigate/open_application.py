@@ -19,7 +19,7 @@ def main(username, action_type):
         login_url = "accounts/login/"
         option = webdriver.ChromeOptions()
         option.add_argument("--incognito")
-        driver = webdriver.Chrome("../chromedriver/chromedriver.exe", chrome_options=option)
+        driver = webdriver.Chrome("../chromedriver/chromedriver", chrome_options=option)
         url=base_url+ login_url
         driver.get(url)
         time.sleep(2)
