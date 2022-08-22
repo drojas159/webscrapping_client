@@ -61,7 +61,8 @@ def navigate_followers(driver,original_user):
         element.click()
         time.sleep(2)
         scroll_modal_users(driver)
-        users = driver.find_elements(By.XPATH,"//a[contains(@class, 'notranslate _0imsa')]")
+        users = driver.find_elements(
+            By.XPATH, "//span[contains(@class, '_aacl _aaco _aacw _adda _aacx _aad7 _aade')]")
         save_users(users,original_user)
         driver.close()
     except TimeoutException as ex:
@@ -73,7 +74,7 @@ def navigate_followers(driver,original_user):
 def save_users(users,original_user):
     following_user=User.objects.get(username=original_user)
     for u in users:
-        user = User(username=u.get_attribute("title"),profile_url=base_url+u.get_attribute("title"))
+        user = User(username=u.text, profile_url=base_url+u.text)
         user.save_user()
         user_from_db = User.objects.get(username=user.username)
         following_user.user_following.add(user_from_db)
@@ -87,8 +88,10 @@ def scroll_modal_users(driver):
     count=0
     while True :
         last_height=height
-        driver.execute_script("document.querySelector('body > div.RnEpo.Yx5HN > div > div > div > div.isgrP').scrollTop = "+str(scroll))    
-        height = int(driver.execute_script("return document.querySelector('body > div.RnEpo.Yx5HN > div > div > div > div.isgrP').scrollTop"))
+        driver.execute_script(
+            "document.querySelector('._aano').scrollTop = "+str(scroll))
+        height = int(driver.execute_script(
+            "return document.querySelector('._aano').scrollTop"))
         new_height = height
         
         if (last_height == new_height):
@@ -224,8 +227,7 @@ def scroll_comments(driver,p):
             process_comments(general_comments,p)
 
             last_height=height
-            
-            driver.execute_script("document.querySelector('#react-root > div > div > section > main > div > div.ltEKP > article > div > div.qF0y9.Igw0E.IwRSH.eGOV_.acqo5._4EzTm > div > div.eo2As > div.EtaWk > ul').scrollTop = "+str(scroll))    
+            driver.execute_script("document.querySelector('#react-root > div > div > section > main > div > div.ltEKP > article > div > div.qF0y9.Igw0E.IwRSH.eGOV_.acqo5._4EzTm > div > div.eo2As > div.EtaWk > ul').scrollTop = "+str(scroll))   
             height = int(driver.execute_script("return document.querySelector('#react-root > div > div > section > main > div > div.ltEKP > article > div > div.qF0y9.Igw0E.IwRSH.eGOV_.acqo5._4EzTm > div > div.eo2As > div.EtaWk > ul').scrollTop"))
             new_height = height
             
