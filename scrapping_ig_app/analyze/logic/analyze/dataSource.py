@@ -6,7 +6,7 @@ def connection():
         
         hostname = 'localhost'
         username = 'postgres'
-        password = 'admin'
+        password = 'Chelsea2021!'
         database = 'mental_data_ig'
         port = 5432
 

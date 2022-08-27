@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2 import Error
 conexion = psycopg2.connect(
     user = 'postgres',
-    password = 'admin',
+    password = 'Chelsea2021!',
     host = '127.0.0.1',
     port = '5432',
     database = 'test_db'
@@ -21,5 +21,4 @@ try:
 except Exception as e:
     print(f'Ocurrio un error  {e}')
 finally:
-    
     conexion.close()

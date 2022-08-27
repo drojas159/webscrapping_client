@@ -24,9 +24,9 @@ def main(username, action_type):
         driver.get(url)
         time.sleep(2)
         username_input = driver.find_element(By.NAME,"username")
-        username_input.send_keys("webscraping_smart")
+        username_input.send_keys("mentaldata")
         password_input = driver.find_element(By.NAME,"password")
-        password_input.send_keys("Chelsea123!"+ Keys.ENTER)
+        password_input.send_keys("Maria1112."+ Keys.ENTER)
         #wait=WebDriverWait(driver,120).until(EC.url_changes(url))
         login(driver,username, action_type)
     except TimeoutException as ex:
