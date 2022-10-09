@@ -26,16 +26,18 @@ def main(username, action_type):
         username_input = driver.find_element(By.NAME,"username")
         username_input.send_keys("mentaldata")
         password_input = driver.find_element(By.NAME,"password")
-        password_input.send_keys("Maria1112."+ Keys.ENTER)
+        password_input.send_keys(""+ Keys.ENTER)
         #wait=WebDriverWait(driver,120).until(EC.url_changes(url))
         login(driver,username, action_type)
     except TimeoutException as ex:
+        print(ex)
         driver.close()
 def login(driver, username, action_type):
     try :        
         url=driver.current_url
         if ("https://www.instagram.com/accounts/onetap" in url):
-            element=driver.find_element(By.XPATH,"//button[contains(@class, 'sqdOP yWX7d    y3zKF     ')]")
+            element = driver.find_element(
+                By.XPATH, "//button[contains(@class, '_acan _acao _acas')]")
             element.click()
             time.sleep(1)
             login(driver,username, action_type)
@@ -50,6 +52,7 @@ def login(driver, username, action_type):
             login(driver,username, action_type)     
 
     except TimeoutException as ex:
+        print(ex)
         driver.close()
 
 def navigate_followers(driver,original_user):
@@ -62,17 +65,19 @@ def navigate_followers(driver,original_user):
         time.sleep(2)
         scroll_modal_users(driver)
         users = driver.find_elements(
-            By.XPATH, "//span[contains(@class, '_aacl _aaco _aacw _adda _aacx _aad7 _aade')]")
+            By.XPATH, "//span[contains(@class, '_aacl _aaco _aacw _aacx _aad7 _aade')]")
+        print(users)
         save_users(users,original_user)
         driver.close()
     except TimeoutException as ex:
+        print(ex)
         driver.close()
     except NoSuchElementException:
         print("NoSuchElementException")
         driver.close()
 
 def save_users(users,original_user):
-    following_user=User.objects.get(username=original_user)
+    following_user = User.objects.get(username=original_user)
     for u in users:
         user = User(username=u.text, profile_url=base_url+u.text)
         user.save_user()
@@ -160,6 +165,7 @@ def navigate_publications(driver):
             print(wait)
             
     except TimeoutException as ex:
+        print(ex)
         driver.close()
     finally:
         driver.close()
@@ -184,6 +190,7 @@ def navigate_comments(driver):
             scroll_comments(driver,p)           
                  
     except TimeoutException as ex:
+        print(ex)
         driver.close()
     finally:
         driver.close()
