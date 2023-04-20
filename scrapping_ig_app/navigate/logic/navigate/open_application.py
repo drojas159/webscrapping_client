@@ -32,6 +32,7 @@ def main(username, action_type):
     except TimeoutException as ex:
         print(ex)
         driver.close()
+
 def login(driver, username, action_type):
     try :        
         url=driver.current_url
